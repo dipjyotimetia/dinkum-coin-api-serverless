@@ -13,4 +13,13 @@
     <Compile Remove="Program.cs" />
     <Compile Remove="Startup.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Nuke.Core" Version="0.1.434" />
+    <PackageReference Include="AWSSDK.CloudFormation" Version="3.3.9" />
+    <PackageReference Include="GitVersion.CommandLine" Version="4.0.0-beta0011" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Settings\" />
+    <Folder Include="Targets\" />
+  </ItemGroup>
 </Project>
