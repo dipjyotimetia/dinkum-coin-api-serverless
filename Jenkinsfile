@@ -21,7 +21,7 @@ pipeline {
 					currentBuild.displayName = buildVersion
 				}
 				
-				sh 'dotnet run --project \"%WORKSPACE%/build/Build.csproj\" -target "Compile"'
+				sh 'dotnet run --project \"%WORKSPACE%/Build/Build.csproj\" -target "Compile"'
 
 				stash name: "solution", useDefaultExcludes: false
 			}
