@@ -7,7 +7,7 @@ pipeline {
 	
 	stages {
 		stage("Build") {
-			agent any
+			agent { label 'dotnetcore' }
 			steps {
 				deleteDir()
 				checkout scm
