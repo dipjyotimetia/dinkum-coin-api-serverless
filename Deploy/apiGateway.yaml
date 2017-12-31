@@ -4,15 +4,15 @@ Parameters:
   EnvironmentName:
     Description: Environment Name
     Type: String    
-  DinkumCoinDomainName:
-    Description: Fully qualified domain name for API DNS record
-    Type: "String"
-  DinkumCoinSSLCertificateArn:
-    Description: ARN of the SSL certificate used by custom domain record
-    Type: "String"    
-  DinkumCoinDnsHostedZoneId:
-    Description: Hosted Zone Id within Route53 under which to create the Comms DNS record
-    Type: "String" 
+  # DinkumCoinDomainName:
+  #   Description: Fully qualified domain name for API DNS record
+  #   Type: "String"
+  # DinkumCoinSSLCertificateArn:
+  #   Description: ARN of the SSL certificate used by custom domain record
+  #   Type: "String"    
+  # DinkumCoinDnsHostedZoneId:
+  #   Description: Hosted Zone Id within Route53 under which to create the Comms DNS record
+  #   Type: "String" 
 
   GetAllWalletsLambdaArn:
     Description: Arn for Get All Wallets Lambda

@@ -17,7 +17,7 @@ namespace Build.Settings
         {
             SourceDirectory = rootDirectory / "src";
             TestDirectory = rootDirectory / "test";
-            TemplateDirectory = rootDirectory / "deploy" ;
+            TemplateDirectory = rootDirectory / "deploy";
             BuildOutputDirectory = rootDirectory / "buildOutput";
 
             LogsDirectory = BuildOutputDirectory / "logs";
@@ -40,6 +40,5 @@ namespace Build.Settings
         public AbsolutePath TemplateDirectory { get; }
 
         public AbsolutePath TestDirectory { get; }
-    }
     }
 }

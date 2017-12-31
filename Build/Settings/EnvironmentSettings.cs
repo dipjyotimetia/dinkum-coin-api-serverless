@@ -19,6 +19,7 @@ namespace Build.Settings
             GetWalletByIdLambdaName = $"GetWalletByIdLambda-{environmentName}";
             GetWalletsLambdaName = $"GetAllWalletsLambda-{environmentName}";
             MineCoinLambdaName= $"MineCoinLambda-{environmentName}";
+            LambdaExecutionRoleName = "DinkumCoinLambdaRole";
         }
 
         public string BetDomainCloudFormationTopic => $"arn:aws:sns:ap-southeast-2:{_accountNumber}:BetDomainCloudFormation";
@@ -32,6 +33,12 @@ namespace Build.Settings
         public string GetWalletsLambdaName { get; set; }
         public string GetWalletByIdLambdaName { get; set; }
         public string MineCoinLambdaName { get; set; }
+
+        public string GetWalletsLambdaArn { get; set; }
+        public string GetWalletByIdLambdaArn { get; set; }
+        public string MineCoinLambdaArn { get; set; }
+
+        public string LambdaExecutionRoleName { get; set; }
 
 
         public static EnvironmentSettings CreateSettings(string accountName, string environmentName)

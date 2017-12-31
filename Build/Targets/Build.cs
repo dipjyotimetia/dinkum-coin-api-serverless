@@ -1,10 +1,16 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.IO.Compression;
+using Amazon.SecurityToken.Model;
 using Build.Settings;
+using CrownBet.Build;
+using CrownBet.Build.Aws;
 using Nuke.Core;
 using Nuke.Core.IO;
 using Nuke.Core.Tooling;
+using Nuke.Common.Tools.DotNet;
+
+using static Nuke.Common.Tools.DotNet.DotNetTasks;
+
 
 namespace Build.Targets
 {
@@ -38,7 +44,7 @@ namespace Build.Targets
                      DotnetPath, $"publish -c Release /p:Version=\"{GetBuildVersion()}\" -o \"{Settings.PublishDirectory}\"", RootDirectory).AssertZeroExitCode();
                  File.Copy(Settings.PublishDirectory / "runtimes" / "linux" / "lib" / "netstandard1.3" / "System.Net.NetworkInformation.dll", Settings.PublishDirectory / "System.Net.NetworkInformation.dll");
                  Directory.CreateDirectory(Settings.PackageDirectory);
-                 ZipFile.CreateFromDirectory(Settings.PublishDirectory, Settings.PackageDirectory / $"communication-service_{GetBuildVersion()}.zip");
+            ZipFile.CreateFromDirectory(Settings.PublishDirectory, Settings.PackageDirectory / $"DinkumCoin.Api.Wallet.Lambda_{GetBuildVersion()}.zip");
              });
 
         public Target Test => _ => _
@@ -47,23 +53,11 @@ namespace Build.Targets
              .Executes(() =>
              {
                  DotNetTest(settings => settings
-                      .SetProjectFile(Settings.TestDirectory / "CommService.DeferredMessage.Lambda.Test")
+                            .SetProjectFile(Settings.TestDirectory / "DinkumCoin.Data.Tests")
                       .SetNoBuild(true));
                  DotNetTest(settings => settings
-                     .SetProjectFile(Settings.TestDirectory / "CommunicationEndpointLambda.Test")
+                            .SetProjectFile(Settings.TestDirectory / "DinkumCoin.Wallet.Lambda.Tests")
                      .SetNoBuild(true));
-                 DotNetTest(settings => settings
-                    .SetProjectFile(Settings.TestDirectory / "EmailAdapaterLambda.Test")
-                    .SetNoBuild(true));
-                 DotNetTest(settings => settings
-                     .SetProjectFile(Settings.TestDirectory / "MessageProcessingLambda.Test")
-                     .SetNoBuild(true));
-                 DotNetTest(settings => settings
-                     .SetProjectFile(Settings.TestDirectory / "MobilePushAdapaterLambda.Test")
-                     .SetNoBuild(true));
-                 DotNetTest(settings => settings
-                    .SetProjectFile(Settings.TestDirectory / "SmsAdapterLambda.Test")
-                    .SetNoBuild(true));
              });
 
         public Target Upload => _ => _

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Library</OutputType>
+    <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <RootNamespace>Build</RootNamespace>
@@ -15,8 +15,16 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Nuke.Core" Version="0.1.434" />
-    <PackageReference Include="AWSSDK.CloudFormation" Version="3.3.9" />
+    <PackageReference Include="CrownBet.Build.Aws.CloudFormation" Version="1.0.4" />
+    <PackageReference Include="CrownBet.Build.Aws.Iam" Version="1.0.1" />
+    <PackageReference Include="CrownBet.Build.Aws.Lambda" Version="1.0.5" />
+    <PackageReference Include="CrownBet.Build.Aws.S3" Version="1.0.1" />
+    <PackageReference Include="CrownBet.Build.Aws.Ssm" Version="1.0.1" />
+    <PackageReference Include="CrownBet.Build.Aws.Sts" Version="1.0.1" />
+    <PackageReference Include="CrownBet.Build.Git" Version="1.0.4" />
+    <PackageReference Include="CrownBet.Build.Password" Version="1.0.2" />
     <PackageReference Include="GitVersion.CommandLine" Version="4.0.0-beta0011" />
+    <PackageReference Include="Nuke.Common" Version="0.1.434" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Settings\" />
