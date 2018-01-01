@@ -12,7 +12,7 @@ pipeline {
 				deleteDir()
 				checkout scm
 
-				sh 'dotnet run --project \"Build/Build.csproj\" -target "Export_Build_Version" -BuildVersionFilePath \"%WORKSPACE%/version.txt\"'
+				sh 'dotnet run --project \"Build/Build.csproj\" -target "Export_Build_Version" -BuildVersionFilePath version.txt'
 				
 				script {
 					echo "reading build version"
