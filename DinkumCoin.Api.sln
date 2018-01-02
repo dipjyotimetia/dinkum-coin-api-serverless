@@ -1,17 +1,17 @@
 
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DinkumCoin.Wallet.Lambda", "DinkumCoin.Wallet.Lambda\DinkumCoin.Wallet.Lambda.csproj", "{41DAD969-ED13-4D02-9FA6-1CE678AF8E46}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DinkumCoin.Wallet.Lambda", "src\DinkumCoin.Wallet.Lambda\DinkumCoin.Wallet.Lambda.csproj", "{41DAD969-ED13-4D02-9FA6-1CE678AF8E46}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DinkumCoin.Wallet.Lambda.Tests", "DinkumCoin.Wallet.Lambda.Tests\DinkumCoin.Wallet.Lambda.Tests.csproj", "{C04BD018-AC62-4D36-B28A-CD6788D47F7F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DinkumCoin.Wallet.Lambda.Tests", "test\DinkumCoin.Wallet.Lambda.Tests\DinkumCoin.Wallet.Lambda.Tests.csproj", "{C04BD018-AC62-4D36-B28A-CD6788D47F7F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Build", "Build\Build.csproj", "{4DB6A591-31BF-4ED5-AFB8-1117032138B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DinkumCoin.Core", "DinkumCoin.Core\DinkumCoin.Core.csproj", "{C2468849-1258-461C-AB66-E8D772C14756}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DinkumCoin.Core", "src\DinkumCoin.Core\DinkumCoin.Core.csproj", "{C2468849-1258-461C-AB66-E8D772C14756}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DinkumCoin.Data", "DinkumCoin.Data\DinkumCoin.Data.csproj", "{58AE14D2-B76D-498E-9B31-C5D9610A941C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DinkumCoin.Data", "src\DinkumCoin.Data\DinkumCoin.Data.csproj", "{58AE14D2-B76D-498E-9B31-C5D9610A941C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DinkumCoin.Data.Tests", "DinkumCoin.Data.Tests\DinkumCoin.Data.Tests.csproj", "{D541C077-805A-403A-A399-3F506AF72A68}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DinkumCoin.Data.Tests", "test\DinkumCoin.Data.Tests\DinkumCoin.Data.Tests.csproj", "{D541C077-805A-403A-A399-3F506AF72A68}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{839583B0-04EE-494F-BC23-3086670CB20C}"
 EndProject

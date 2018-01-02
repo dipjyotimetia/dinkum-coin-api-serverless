@@ -12,7 +12,7 @@ pipeline {
 				deleteDir()
 				checkout scm
 
-				sh 'dotnet run --project \"Build/Build.csproj\" -target "Export_Build_Version" -BuildVersionFilePath version.txt'
+				sh 'dotnet run --project \"build/Build.csproj\" -target "Export_Build_Version" -BuildVersionFilePath version.txt'
 				
 				script {
 					echo "reading build version"
@@ -21,7 +21,7 @@ pipeline {
 					currentBuild.displayName = buildVersion
 				}
 				
-				sh 'dotnet run --project \"Build/Build.csproj\" -target "Compile"'
+				sh 'dotnet run --project \"build/Build.csproj\" -target "Compile"'
 
 				stash name: "solution", useDefaultExcludes: false
 			}
@@ -32,7 +32,7 @@ pipeline {
 				deleteDir()
 				unstash "solution"
 
-				sh 'dotnet run --project \"Build/Build.csproj\" -target "Test" -NoDeps'
+				sh 'dotnet run --project \"build/Build.csproj\" -target "Test" -NoDeps'
 			}
 		}
 	stage("Package & Upload") {
