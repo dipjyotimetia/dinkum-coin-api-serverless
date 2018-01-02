@@ -5,7 +5,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DinkumCoin.Wallet.Lambda", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DinkumCoin.Wallet.Lambda.Tests", "test\DinkumCoin.Wallet.Lambda.Tests\DinkumCoin.Wallet.Lambda.Tests.csproj", "{C04BD018-AC62-4D36-B28A-CD6788D47F7F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Build", "Build\Build.csproj", "{4DB6A591-31BF-4ED5-AFB8-1117032138B9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Build", "build\Build.csproj", "{4DB6A591-31BF-4ED5-AFB8-1117032138B9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DinkumCoin.Core", "src\DinkumCoin.Core\DinkumCoin.Core.csproj", "{C2468849-1258-461C-AB66-E8D772C14756}"
 EndProject
