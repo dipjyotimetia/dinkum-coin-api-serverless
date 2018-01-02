@@ -8,7 +8,4 @@
     <Folder Include="Contracts\" />
     <Folder Include="Models\" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Remove="Class1.cs" />
-  </ItemGroup>
 </Project>

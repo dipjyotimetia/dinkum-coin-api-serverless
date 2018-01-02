@@ -28,7 +28,4 @@
     <Folder Include="Util\" />
     <Folder Include="Contracts\" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Remove="Services\WalletService.cs" />
-  </ItemGroup>
 </Project>
