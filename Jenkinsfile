@@ -32,7 +32,7 @@ pipeline {
 				deleteDir()
 				unstash "solution"
 
-				sh 'dotnet run --project \"build/Build.csproj\" -target "Test" -NoDeps'
+				sh 'dotnet run --project \"Build/Build.csproj\" -target "Test" -NoDeps'
 			}
 		}
 	stage("Package & Upload") {
