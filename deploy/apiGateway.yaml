@@ -1,0 +1,163 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Parameters: 
+
+  EnvironmentName:
+    Description: Environment Name
+    Type: String    
+  # DinkumCoinDomainName:
+  #   Description: Fully qualified domain name for API DNS record
+  #   Type: "String"
+  # DinkumCoinSSLCertificateArn:
+  #   Description: ARN of the SSL certificate used by custom domain record
+  #   Type: "String"    
+  # DinkumCoinDnsHostedZoneId:
+  #   Description: Hosted Zone Id within Route53 under which to create the Comms DNS record
+  #   Type: "String" 
+
+  GetAllWalletsLambdaArn:
+    Description: Arn for Get All Wallets Lambda
+    Type: "String" 
+  GetWalletByIdLambdaArn:
+    Description: Arn for Get Wallet Lambda
+    Type: "String"  
+  MineCoinLambdaArn:
+    Description: Arn for Mine Coin Lambda
+    Type: "String" 
+    
+Description: Starting template for an AWS Serverless Application.
+Outputs:
+  APIGatewayUrl:
+    Value:
+        Fn::Sub:
+        - https://${__ApiId__}.execute-api.${AWS::Region}.amazonaws.com/${__Stage__}/
+        - __Stage__: 
+            Ref: EnvironmentName
+          __ApiId__:
+            Ref: DinkumCoinRestApi
+Resources:
+  DinkumCoinRestApi:
+    Type: AWS::ApiGateway::RestApi
+    Properties:
+      Body:
+        info:
+          version: '1.0'
+          title:
+            Ref: AWS::StackName
+        swagger: '2.0'
+  
+  DinkumCoinRestApiBaseResource:
+    Type: AWS::ApiGateway::Resource
+    DependsOn: DinkumCoinRestApi
+    Properties:
+      RestApiId: !Ref DinkumCoinRestApi
+      ParentId: !GetAtt [DinkumCoinRestApi, RootResourceId]
+      PathPart: 'api'
+  
+  DinkumCoinRestApiWalletsResource:
+    Type: AWS::ApiGateway::Resource
+    DependsOn: DinkumCoinRestApiBaseResource
+    Properties:
+      RestApiId: !Ref DinkumCoinRestApi
+      ParentId: !Ref DinkumCoinRestApiBaseResource
+      PathPart: 'wallets'
+  
+  DinkumCoinRestApiWalletByIdResource:
+    Type: AWS::ApiGateway::Resource
+    DependsOn: DinkumCoinRestApiWalletsResource
+    Properties:
+      RestApiId: !Ref DinkumCoinRestApi
+      ParentId: !Ref DinkumCoinRestApiWalletsResource
+      PathPart: '{walletId}'
+  
+  DinkumCoinRestApiMineCoinResource:
+    Type: AWS::ApiGateway::Resource
+    DependsOn: DinkumCoinRestApiWalletByIdResource
+    Properties:
+      RestApiId: !Ref DinkumCoinRestApi
+      ParentId: !Ref DinkumCoinRestApiWalletByIdResource
+      PathPart: 'minecoin'
+
+  DinkumCoinRestApiMineCoinMethod:
+    Type: AWS::ApiGateway::Method
+    DependsOn: DinkumCoinRestApiMineCoinResource
+    Properties:
+      RestApiId: !Ref DinkumCoinRestApi
+      ResourceId: !Ref DinkumCoinRestApiMineCoinResource
+      HttpMethod: POST      
+      AuthorizationType: AWS_IAM
+      Integration:
+        Type: AWS_PROXY
+        IntegrationHttpMethod: POST
+        Uri: 
+          Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${MineCoinLambdaArn}/invocations
+  
+  DinkumCoinRestApiGetWalletsMethod:
+    Type: AWS::ApiGateway::Method
+    DependsOn: DinkumCoinRestApiWalletsResource
+    Properties:
+      RestApiId: !Ref DinkumCoinRestApi
+      ResourceId: !Ref DinkumCoinRestApiWalletsResource
+      HttpMethod: GET      
+      AuthorizationType: AWS_IAM
+      Integration:
+        Type: AWS_PROXY
+        IntegrationHttpMethod: POST
+        Uri: 
+          Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetAllWalletsLambdaArn}/invocations
+                   
+  DinkumCoinRestApiGetWalletByIdMethod:
+    Type: AWS::ApiGateway::Method
+    DependsOn: DinkumCoinRestApiWalletByIdResource
+    Properties:
+      RestApiId: !Ref DinkumCoinRestApi
+      ResourceId: !Ref DinkumCoinRestApiWalletByIdResource
+      HttpMethod: GET      
+      AuthorizationType: AWS_IAM
+      Integration:
+        Type: AWS_PROXY
+        IntegrationHttpMethod: POST
+        Uri: 
+          Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetWalletByIdLambdaArn}/invocations
+    
+  DinkumCoinRestApiGetWalletsLambdaPermission:
+    Type: AWS::Lambda::Permission
+    DependsOn: DinkumCoinRestApiGetWalletsMethod
+    Properties:
+      Action: lambda:invokeFunction
+      Principal: apigateway.amazonaws.com
+      FunctionName: DinkumCoin-GetAllWalletsLambdaFunction
+      SourceArn:
+        Fn::Sub:
+        - arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${__ApiId__}/${__Stage__}/GET/api/wallets
+        - __Stage__: "*"
+          __ApiId__:
+            Ref: DinkumCoinRestApi            
+                                     
+  DinkumCoinRestApiGetWalletByIdLambdaPermission:
+    Type: AWS::Lambda::Permission
+    DependsOn: DinkumCoinRestApiGetWalletByIdMethod
+    Properties:
+      Action: lambda:invokeFunction
+      Principal: apigateway.amazonaws.com
+      FunctionName: DinkumCoin-GetWalletByIdLambdaFunction
+      SourceArn:
+        Fn::Sub:
+        - arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${__ApiId__}/${__Stage__}/GET/api/wallets/*
+        - __Stage__: "*"
+          __ApiId__:
+            Ref: DinkumCoinRestApi            
+  
+  DinkumCoinRestApiMineCoinLambdaPermission:
+    Type: AWS::Lambda::Permission
+    DependsOn: DinkumCoinRestApiMineCoinMethod
+    Properties:
+      Action: lambda:invokeFunction
+      Principal: apigateway.amazonaws.com
+      FunctionName: DinkumCoin-MineCoinLambdaFuntion
+      SourceArn:
+        Fn::Sub:
+        - arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${__ApiId__}/${__Stage__}/POST/api/wallets/*/minecoin
+        - __Stage__: "*"
+          __ApiId__:
+            Ref: DinkumCoinRestApi            
+                                                         
