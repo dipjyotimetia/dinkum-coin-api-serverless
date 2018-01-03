@@ -42,7 +42,7 @@ namespace Build.Targets
              {
                  ProcessTasks.StartProcess(
                      DotnetPath, $"publish -c Release /p:Version=\"{GetBuildVersion()}\" -o \"{Settings.PublishDirectory}\"", RootDirectory).AssertZeroExitCode();
-                 File.Copy(Settings.PublishDirectory / "runtimes" / "linux" / "lib" / "netstandard1.3" / "System.Net.NetworkInformation.dll", Settings.PublishDirectory / "System.Net.NetworkInformation.dll");
+              //   File.Copy(Settings.PublishDirectory / "runtimes" / "linux" / "lib" / "netstandard1.3" / "System.Net.NetworkInformation.dll", Settings.PublishDirectory / "System.Net.NetworkInformation.dll");
                  Directory.CreateDirectory(Settings.PackageDirectory);
             ZipFile.CreateFromDirectory(Settings.PublishDirectory, Settings.PackageDirectory / $"DinkumCoin.Api.Wallet.Lambda_{GetBuildVersion()}.zip");
              });
