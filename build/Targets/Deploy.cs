@@ -57,17 +57,19 @@ namespace Build.Targets
             .DependsOn(Deploy_Lambdas)
             .Requires(() => AccountName)
             .Requires(() => EnvironmentName)
-            .Executes(() => UpsertStack(StackName.ApiGateway, Settings.TemplateDirectory / "apiGateway.yaml",
-            new List<Parameter>
+            .Executes(() =>
             {
-                new Parameter { ParameterKey = "EnvironmentName", ParameterValue = EnvironmentName },
-                new Parameter { ParameterKey = "GetAllWalletsLambdaArn", ParameterValue = EnvironmentSettings.GetWalletsLambdaArn },
-                new Parameter { ParameterKey = "GetWalletByIdLambdaArn", ParameterValue = EnvironmentSettings.GetWalletByIdLambdaArn },
-                new Parameter { ParameterKey = "MineCoinLambdaArn", ParameterValue = EnvironmentSettings.MineCoinLambdaArn},
+                UpsertStack(StackName.ApiGateway, Settings.TemplateDirectory / "apiGateway.yaml",
+                new List<Parameter>
+                {
+                    new Parameter { ParameterKey = "EnvironmentName", ParameterValue = EnvironmentName },
+                new Parameter { ParameterKey = "GetAllWalletsLambdaArn", ParameterValue = GetStackOutputValue(StackName.WalletLambdas,"GetAllWalletsLambdaArn") },
+                new Parameter { ParameterKey = "GetWalletByIdLambdaArn", ParameterValue =GetStackOutputValue(StackName.WalletLambdas,"GetWalletByIdLambdaArn")  },
+                new Parameter { ParameterKey = "MineCoinLambdaArn", ParameterValue = GetStackOutputValue(StackName.WalletLambdas,"MineCoinLambdaArn")},
+                }, StackTags, false);
+            });
 
-            }, StackTags, false));
-
-
+    
         public Target Deploy_Lambdas => _ => _
         .Description("Provision lambdas for Dinkum Coin API")
         .Requires(() => AccountName)
@@ -140,7 +142,7 @@ namespace Build.Targets
         {
             var settings = new StackSettings
             {
-                NotificationArns = notification ? new List<string> { EnvironmentSettings.BetDomainCloudFormationTopic } : new List<string>()
+                NotificationArns = notification ? new List<string> {  } : new List<string>()
             };
 
             CloudFormation.UpsertStack(stackName, templatePath, parameters, tags, Credentials, settings).Wait();

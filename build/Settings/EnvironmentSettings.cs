@@ -16,15 +16,13 @@ namespace Build.Settings
             _accountNumber = accountNumber;
             EnvironmentName = environmentName;
 
-            GetWalletByIdLambdaName = $"GetWalletByIdLambda-{environmentName}";
-            GetWalletsLambdaName = $"GetAllWalletsLambda-{environmentName}";
-            MineCoinLambdaName= $"MineCoinLambda-{environmentName}";
-            LambdaExecutionRoleName = "DinkumCoinLambdaRole";
+            GetWalletByIdLambdaName = $"DinkumCoin{environmentName}-GetWalletByIdLambda";
+            GetWalletsLambdaName = $"DinkumCoin{environmentName}-GetAllWalletsLambda";
+            MineCoinLambdaName= $"DinkumCoin-{environmentName}-MineCoinLambda";
+            LambdaExecutionRoleName = $"DinkumCoin-{environmentName}-LambdaRole";
         }
 
-        public string BetDomainCloudFormationTopic => $"arn:aws:sns:ap-southeast-2:{_accountNumber}:BetDomainCloudFormation";
-
-        public string DeployRoleArn => $"arn:aws:iam::{_accountNumber}:role/DinkumCoin-dev-DeployRole";
+        public string DeployRoleArn => $"arn:aws:iam::{_accountNumber}:role/DinkumCoin-{EnvironmentName}-DeployRole";
 
         public bool OnlyCallerCanAssumeDeployRole { get; set; }
 
