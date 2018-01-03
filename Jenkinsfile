@@ -52,14 +52,16 @@ pipeline {
 			}
 		}
 	stage("Deploy to Dev") {
-			agent { label 'dotnetcore' }
+		agent { label 'dotnetcore' }
 
-			environment { 
-                AWS_ACCESS_KEY_ID = credentials('AWSAccessKey') 
-				AWS_SECRET_ACCESS_KEY= credentials('AWSSecretKey') 
-            }
+		environment { 
+			AWS_ACCESS_KEY_ID = credentials('AWSAccessKey') 
+			AWS_SECRET_ACCESS_KEY= credentials('AWSSecretKey') 
+		}
 
-			steps { deploy "DevEnv", "dev", buildVersion, true }
+		steps { 
+			deploy "DevEnv", "dev", buildVersion, true 
+			}
 
 		}		
     }
@@ -74,7 +76,7 @@ void deploy(String awsAccountName, String environment, String versionToDeploy, B
 			
 		echo 'Running Nuke for deployment'
 			
-		sh 'dotnet run --project \"build/Build.csproj\" -target \"Deploy\" -Account ${awsAccountName} -Environment ${environment} -VersionToDeploy ${versionToDeploy}'
+		sh "dotnet run --project \"build/Build.csproj\" -target \"Deploy\" -Account '${awsAccountName}' -Environment '${environment}' -VersionToDeploy '${versionToDeploy}'"
 		
 		notifySuccessful(environment)
 		
