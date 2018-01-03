@@ -50,6 +50,50 @@ pipeline {
 				sh 'dotnet run --project \"build/Build.csproj\" -target "Upload" -NoDeps'
 	
 			}
-		}	
+		}
+	stage("Deploy to Dev") {
+			agent { label 'dotnetcore' }
+
+			environment { 
+                AWS_ACCESS_KEY_ID = credentials('AWSAccessKey') 
+				AWS_SECRET_ACCESS_KEY= credentials('AWSSecretKey') 
+            }
+
+			steps { deploy "DevEnv", "dev", buildVersion, true }
+
+		}		
     }
 }
+
+
+void deploy(String awsAccountName, String environment, String versionToDeploy, Boolean cancelJobs = false) {
+	try{
+		deleteDir()
+		unstash "solution"
+		lock("Dinkum-Coin-Api ${environment}") {
+			echo "deployment started"
+			
+			echo "Running Nuke for deployment"
+			
+			bat "dotnet run --project \"build/Build.csproj\" -target \"Deploy\" -Account ${awsAccountName} -Environment ${environment} -VersionToDeploy ${versionToDeploy}"
+		}
+		notifySuccessful(environment)
+		
+	}catch(e){
+		notifyFailed(environment)
+		throw e
+	}
+
+}
+void notifySuccessful(String environment, String versionToDeploy) {
+    hipchatSend(color: 'GREEN', notify: true,
+      message: "dinkum-coin-api has finished running ${environment} version ${versionToDeploy} deployment with status SUCCEEDED" 
+    )
+}
+
+void notifyFailed(String environment, String versionToDeploy) {
+    hipchatSend(color: 'RED', notify: true,
+      message: "dinkum-coin-api has finished running ${environment} version ${versionToDeploy} deployment with status FAILED" 
+    )
+}
+

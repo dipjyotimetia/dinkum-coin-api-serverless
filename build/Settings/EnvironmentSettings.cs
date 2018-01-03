@@ -24,7 +24,7 @@ namespace Build.Settings
 
         public string BetDomainCloudFormationTopic => $"arn:aws:sns:ap-southeast-2:{_accountNumber}:BetDomainCloudFormation";
 
-        public string DeployRoleArn => $"arn:aws:iam::{_accountNumber}:role/Ignite/DraftstarsApi/Draftstars-Api-Build-Role";
+        public string DeployRoleArn => $"arn:aws:iam::{_accountNumber}:role/DinkumCoin-dev-DeployRole";
 
         public bool OnlyCallerCanAssumeDeployRole { get; set; }
 
