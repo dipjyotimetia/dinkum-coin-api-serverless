@@ -8,9 +8,9 @@ namespace Build.Settings
 
         public const string ApplicationName = "DinkumCoin-API";
         public const string BucketName = "dinkum-coin-api-packages";
-        public const string BucketWriteRoleArn = "arn:aws:iam::" + DevAccountId + ":role/CommunicationService-WriteBucketRole";
-        public const string JenkinsRoleArn = "arn:aws:iam::" + DevAccountId + ":role/orc-ec2";
-        public const string DevAccountId = "886153924892";
+        public const string BucketWriteRoleArn = "arn:aws:iam::" + DevAccountId + ":role/DinkumCoinApi-WriteBucketRole";
+        public const string JenkinsRoleArn = "arn:aws:iam::" + DevAccountId + ":user/JenkinsUser";
+        public const string DevAccountId = "303010477609";
 
 
         public GlobalSettings(AbsolutePath rootDirectory)
