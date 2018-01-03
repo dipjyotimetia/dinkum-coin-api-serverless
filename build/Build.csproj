@@ -9,6 +9,10 @@
     <NoWarn>CS0649;CS0169</NoWarn>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType></DebugType>
+    <NoWarn>CS0649;CS0169;NU1605</NoWarn>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Program.cs" />
     <Compile Remove="Startup.cs" />

@@ -25,7 +25,6 @@ namespace Build.Targets
     {
         [Parameter("Name of AWS account (Deploy targets only)", Name = "Account")] public string AccountName;
         [Parameter("Name of environment (Deploy targets only)", Name = "Environment")] public string EnvironmentName;
-        [Parameter("MFA Code required for provisioning S3 bucket, first time deployment of Deploy role and setting of SSM parameters")] public string MfaCode;
         [Parameter("Version of application to deploy (Deploy targets only)")] public string VersionToDeploy;
 
         private Credentials _credentials;
@@ -69,22 +68,8 @@ namespace Build.Targets
             }, StackTags, false));
 
 
-        public Target Deploy_S3 => _ => _
-         .Description("Provision S3 bucket for deployment packages")
-         .Requires(() => AccountName)
-         .Requires(() => EnvironmentName)
-         .Executes(() => UpsertStack(StackName.S3, Settings.TemplateDirectory / "s3.yaml",
-          new List<Parameter>
-          {
-                new Parameter { ParameterKey = "AllowedRoleArns", ParameterValue = GlobalSettings.JenkinsRoleArn },
-                new Parameter { ParameterKey = "S3BucketName", ParameterValue = GlobalSettings.BucketName }
-
-         }, StackTags, false));
-
-
         public Target Deploy_Lambdas => _ => _
         .Description("Provision lambdas for Dinkum Coin API")
-        .DependsOn(Deploy_S3)
         .Requires(() => AccountName)
         .Requires(() => EnvironmentName)
         .Executes(() => UpsertStack(StackName.WalletLambdas, Settings.TemplateDirectory / "lambda.yaml",
@@ -96,10 +81,17 @@ namespace Build.Targets
         }, StackTags, false));
 
 
+        public Target Deploy_S3 => _ => _
+         .Description("Provision S3 bucket for deployment packages")
+         .Requires(() => AccountName)
+         .Requires(() => EnvironmentName)
+         .Executes(() => UpsertStack(StackName.S3, Settings.TemplateDirectory / "s3.yaml",
+          new List<Parameter>
+          {
+                        new Parameter { ParameterKey = "AllowedRoleArns", ParameterValue = GlobalSettings.JenkinsRoleArn },
+                        new Parameter { ParameterKey = "S3BucketName", ParameterValue = GlobalSettings.BucketName }
 
-
-
-
+         }, StackTags, false));
 
 
         //public Target Deploy_S3 => _ => _

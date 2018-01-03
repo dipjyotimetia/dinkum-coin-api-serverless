@@ -4,6 +4,10 @@
     <TargetFramework>netcoreapp1.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType></DebugType>
+    <NoWarn>1701;1702;1705;NU1605</NoWarn>
+  </PropertyGroup>
   <ItemGroup>
     <Folder Include="Contracts\" />
     <Folder Include="Models\" />

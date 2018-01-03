@@ -11,6 +11,10 @@
       <UserSecretsId>DinkumApiUser</UserSecretsId>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType></DebugType>
+    <NoWarn>1701;1702;1705;NU1605</NoWarn>
+  </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\DinkumCoin.Core\DinkumCoin.Core.csproj" />
   </ItemGroup>
