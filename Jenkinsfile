@@ -69,14 +69,13 @@ pipeline {
 void deploy(String awsAccountName, String environment, String versionToDeploy, Boolean cancelJobs = false) {
 	try{
 		deleteDir()
-		unstash "solution"
-		lock("Dinkum-Coin-Api ${environment}") {
-			echo "deployment started"
+		unstash 'solution'
+		echo 'deployment started'
 			
-			echo "Running Nuke for deployment"
+		echo 'Running Nuke for deployment'
 			
-			bat "dotnet run --project \"build/Build.csproj\" -target \"Deploy\" -Account ${awsAccountName} -Environment ${environment} -VersionToDeploy ${versionToDeploy}"
-		}
+		sh 'dotnet run --project \"build/Build.csproj\" -target \"Deploy\" -Account ${awsAccountName} -Environment ${environment} -VersionToDeploy ${versionToDeploy}'
+		
 		notifySuccessful(environment)
 		
 	}catch(e){
