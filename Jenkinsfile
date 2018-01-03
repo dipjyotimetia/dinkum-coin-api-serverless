@@ -38,8 +38,11 @@ pipeline {
 	stage("Package & Upload") {
 			agent { label 'dotnetcore' }
 			steps {
-				echo 'Not implemented'
-
+				deleteDir()
+				unstash "solution"
+				sh 'dotnet run --project \"build/Build.csproj\" -target "Package" -NoDeps'
+				sh 'dotnet run --project \"build/Build.csproj\" -target "Upload" -NoDeps'
+	
 			}
 		}	
     }
