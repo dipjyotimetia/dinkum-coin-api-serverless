@@ -14,7 +14,9 @@ Outputs:
     Value: !GetAtt "GetWalletByIdLambda.Arn"    
   MineCoinLambdaArn:
     Value: !GetAtt "MineCoinLambda.Arn"
-    
+  DinkumCoinLambdaRoleName:
+    Value: !GetAtt "DinkumCoinLambdaRole.RoleName"
+
 Resources:
   DinkumCoinLambdaRole:
     Type: AWS::IAM::Role
