@@ -26,7 +26,7 @@ pipeline {
 				stash name: "solution", useDefaultExcludes: false
 			}
 		}
-	stage("Tests") {
+	stage("Test") {
 			agent { label 'dotnetcore' }
 			steps {
 				deleteDir()
@@ -51,7 +51,7 @@ pipeline {
 	
 			}
 		}
-	stage("Deploy to Dev") {
+	stage("Deploy -> Dev") {
 		agent { label 'dotnetcore' }
 
 		environment { 
