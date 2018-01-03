@@ -48,7 +48,7 @@ namespace Build.Targets
             .Executes(() => UpsertStack(StackName.DynamoDb, Settings.TemplateDirectory / "dynamoDb.yaml",
             new List<Parameter>
             {
-                  new Parameter { ParameterKey = "IamRoleLambdaExecution", ParameterValue = EnvironmentSettings.LambdaExecutionRoleName }
+            new Parameter { ParameterKey = "IamRoleLambdaExecution", ParameterValue = GetStackOutputValue(StackName.WalletLambdas,"DinkumCoinLambdaRoleName") }
 
             }, StackTags, false));
 
