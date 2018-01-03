@@ -39,7 +39,7 @@ pipeline {
 			agent { label 'dotnetcore' }
 
 			environment { 
-                AWS_ACCESS_KEY = credentials('AWSAccessKey') 
+                AWS_ACCESS_KEY_ID = credentials('AWSAccessKey') 
 				AWS_SECRET_ACCESS_KEY= credentials('AWSSecretKey') 
             }
 
