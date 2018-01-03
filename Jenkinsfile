@@ -37,6 +37,12 @@ pipeline {
 		}
 	stage("Package & Upload") {
 			agent { label 'dotnetcore' }
+
+			environment { 
+                AWS_ACCESS_KEY = credentials('AWSAccessKey') 
+				AWS_SECRET_ACCESS_KEY= credentials('AWSSecretKey') 
+            }
+
 			steps {
 				deleteDir()
 				unstash "solution"
