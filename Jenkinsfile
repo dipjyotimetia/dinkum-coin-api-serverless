@@ -33,6 +33,9 @@ pipeline {
 				unstash "solution"
 
 				sh 'dotnet run --project \"build/Build.csproj\" -target "Test" -NoDeps'
+
+				stash name: "solution", useDefaultExcludes: false
+
 			}
 		}
 		stage("Package & Upload") {
@@ -67,7 +70,9 @@ pipeline {
 	}
 	post {
 		always {
-                
+			deleteDir()
+			unstash "solution" 
+			   
 			step([$class: 'XUnitBuilder',
 			thresholds: [[$class: 'FailedThreshold', unstableThreshold: '1']],
 			tools: [[ $class: 'XUnitDotNetTestType', pattern: '**/TestResults.xml']]])
