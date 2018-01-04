@@ -1,7 +1,7 @@
 def buildVersion = ''
 
 pipeline {
-	agent none
+	agent any
 
 	options { skipDefaultCheckout() }
 	
