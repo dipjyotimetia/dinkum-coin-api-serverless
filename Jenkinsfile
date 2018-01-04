@@ -67,34 +67,15 @@ pipeline {
     }
 }
 
-
 void deploy(String awsAccountName, String environment, String versionToDeploy, Boolean cancelJobs = false) {
-	try{
-		deleteDir()
-		unstash 'solution'
-		echo 'deployment started'
+	
+	deleteDir()
+	unstash 'solution'
+	echo 'deployment started'
 			
-		echo 'Running Nuke for deployment'
+	echo 'Running Nuke for deployment'
 			
-		sh "dotnet run --project \"build/Build.csproj\" -target \"Deploy\" -Account '${awsAccountName}' -Environment '${environment}' -VersionToDeploy '${versionToDeploy}'"
-		
-		notifySuccessful(environment)
-		
-	}catch(e){
-		notifyFailed(environment)
-		throw e
-	}
-
-}
-void notifySuccessful(String environment, String versionToDeploy) {
-    hipchatSend(color: 'GREEN', notify: true,
-      message: "dinkum-coin-api has finished running ${environment} version ${versionToDeploy} deployment with status SUCCEEDED" 
-    )
+	sh "dotnet run --project \"build/Build.csproj\" -target \"Deploy\" -Account '${awsAccountName}' -Environment '${environment}' -VersionToDeploy '${versionToDeploy}'"
 }
 
-void notifyFailed(String environment, String versionToDeploy) {
-    hipchatSend(color: 'RED', notify: true,
-      message: "dinkum-coin-api has finished running ${environment} version ${versionToDeploy} deployment with status FAILED" 
-    )
-}
 
