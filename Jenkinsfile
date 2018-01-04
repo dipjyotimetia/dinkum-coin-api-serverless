@@ -26,7 +26,7 @@ pipeline {
 				stash name: "solution", useDefaultExcludes: false
 			}
 		}
-	stage("Test") {
+		stage("Test") {
 			agent { label 'dotnetcore' }
 			steps {
 				deleteDir()
@@ -35,13 +35,13 @@ pipeline {
 				sh 'dotnet run --project \"build/Build.csproj\" -target "Test" -NoDeps'
 			}
 		}
-	stage("Package & Upload") {
+		stage("Package & Upload") {
 			agent { label 'dotnetcore' }
 
 			environment { 
-                AWS_ACCESS_KEY_ID = credentials('AWSAccessKey') 
+				AWS_ACCESS_KEY_ID = credentials('AWSAccessKey') 
 				AWS_SECRET_ACCESS_KEY= credentials('AWSSecretKey') 
-            }
+			}
 
 			steps {
 				deleteDir()
@@ -51,20 +51,30 @@ pipeline {
 	
 			}
 		}
-	stage("Deploy -> Dev") {
-		agent { label 'dotnetcore' }
+		stage("Deploy -> Dev") {
+			agent { label 'dotnetcore' }
 
-		environment { 
-			AWS_ACCESS_KEY_ID = credentials('AWSAccessKey') 
-			AWS_SECRET_ACCESS_KEY= credentials('AWSSecretKey') 
-		}
+			environment { 
+				AWS_ACCESS_KEY_ID = credentials('AWSAccessKey') 
+				AWS_SECRET_ACCESS_KEY= credentials('AWSSecretKey') 
+			}
 
-		steps { 
-			deploy "DevEnv", "dev", buildVersion, true 
+			steps { 
+				deploy "DevEnv", "dev", buildVersion, true 
 			}
 
 		}		
-    }
+	}
+	post {
+		always {
+                
+			step([$class: 'XUnitBuilder',
+			thresholds: [[$class: 'FailedThreshold', unstableThreshold: '1']],
+			tools: [[ $class: 'XUnitDotNetTestType', pattern: '**/TestResults.xml']]])
+
+			// cobertura autoUpdateHealth: false, autoUpdateStability: false, coberturaReportFile: '**/*Cobertura.coverageresults', conditionalCoverageTargets: '70, 0, 0', failUnhealthy: false, failUnstable: false, lineCoverageTargets: '80, 0, 0', maxNumberOfBuilds: 0, methodCoverageTargets: '80, 0, 0', onlyStable: false, sourceEncoding: 'ASCII', zoomCoverageChart: false
+		}
+	}
 }
 
 void deploy(String awsAccountName, String environment, String versionToDeploy, Boolean cancelJobs = false) {

@@ -52,11 +52,12 @@ namespace Build.Targets
              .DependsOn(Compile)
              .Executes(() =>
              {
-                 //DotNetTest(settings => settings
-                      //      .SetProjectFile(Settings.TestDirectory / "DinkumCoin.Data.Tests")
-                      //.SetNoBuild(true));
-                 DotNetTest(settings => settings
-                            .SetProjectFile(Settings.TestDirectory / "DinkumCoin.Wallet.Lambda.Tests")
+             //DotNetTest(settings => settings
+             //      .SetProjectFile(Settings.TestDirectory / "DinkumCoin.Data.Tests")
+             //.SetNoBuild(true));
+             DotNetTest(settings => settings
+                        .SetProjectFile(Settings.TestDirectory / "DinkumCoin.Wallet.Lambda.Tests")
+                        .SetLogger("xunit;LogFilePath=TestResults.xml")
                      .SetNoBuild(true));
              });
 
