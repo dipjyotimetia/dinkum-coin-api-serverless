@@ -23,6 +23,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution", "solution", "{52
 		Jenkinsfile = Jenkinsfile
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DinkumCoin.Api.PactTests", "test\DinkumCoin.Api.PactTests\DinkumCoin.Api.PactTests.csproj", "{7EFB6B5E-220B-4872-9B87-DE504E9969F2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DinkumCoin.Api.Client", "src\DinkumCoin.Api.Client\DinkumCoin.Api.Client.csproj", "{9A843FE4-83F0-4132-8A5B-8EBFF01B9D8D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DinkumCoin.Api.IntegrationTests", "DinkumCoin.Api.IntegrationTests\DinkumCoin.Api.IntegrationTests.csproj", "{08D5F93D-0C5E-44EE-9147-3C657E74EB4A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +59,18 @@ Global
 		{D541C077-805A-403A-A399-3F506AF72A68}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D541C077-805A-403A-A399-3F506AF72A68}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D541C077-805A-403A-A399-3F506AF72A68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7EFB6B5E-220B-4872-9B87-DE504E9969F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EFB6B5E-220B-4872-9B87-DE504E9969F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EFB6B5E-220B-4872-9B87-DE504E9969F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EFB6B5E-220B-4872-9B87-DE504E9969F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A843FE4-83F0-4132-8A5B-8EBFF01B9D8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A843FE4-83F0-4132-8A5B-8EBFF01B9D8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A843FE4-83F0-4132-8A5B-8EBFF01B9D8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A843FE4-83F0-4132-8A5B-8EBFF01B9D8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08D5F93D-0C5E-44EE-9147-3C657E74EB4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08D5F93D-0C5E-44EE-9147-3C657E74EB4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08D5F93D-0C5E-44EE-9147-3C657E74EB4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08D5F93D-0C5E-44EE-9147-3C657E74EB4A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -63,6 +81,9 @@ Global
 		{C2468849-1258-461C-AB66-E8D772C14756} = {839583B0-04EE-494F-BC23-3086670CB20C}
 		{58AE14D2-B76D-498E-9B31-C5D9610A941C} = {839583B0-04EE-494F-BC23-3086670CB20C}
 		{D541C077-805A-403A-A399-3F506AF72A68} = {C4F7F346-5561-4D1A-876A-A9C933051470}
+		{7EFB6B5E-220B-4872-9B87-DE504E9969F2} = {C4F7F346-5561-4D1A-876A-A9C933051470}
+		{9A843FE4-83F0-4132-8A5B-8EBFF01B9D8D} = {839583B0-04EE-494F-BC23-3086670CB20C}
+		{08D5F93D-0C5E-44EE-9147-3C657E74EB4A} = {C4F7F346-5561-4D1A-876A-A9C933051470}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7D410330-2FE5-4380-82A2-3C043821C1E9}

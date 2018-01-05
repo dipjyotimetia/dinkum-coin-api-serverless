@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Amazon.DynamoDBv2;
+using Amazon.DynamoDBv2.DocumentModel;
 using DinkumCoin.Core.Contracts;
 using DinkumCoin.Core.Models;
-
-using Amazon;
-using Amazon.DynamoDBv2;
-using Amazon.DynamoDBv2.DataModel;
-using Amazon.DynamoDBv2.DocumentModel;
-using Amazon.DynamoDBv2.Model;
-using Amazon.Runtime;
-using System.Threading.Tasks;
-using System.Diagnostics;
-using System.Text;
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace DinkumCoin.Data.Repositories
 {
