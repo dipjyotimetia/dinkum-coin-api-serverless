@@ -84,7 +84,7 @@ Resources:
       RestApiId: !Ref DinkumCoinRestApi
       ResourceId: !Ref DinkumCoinRestApiMineCoinResource
       HttpMethod: POST      
-      AuthorizationType: AWS_IAM
+      AuthorizationType: NONE
       Integration:
         Type: AWS_PROXY
         IntegrationHttpMethod: POST
@@ -98,7 +98,7 @@ Resources:
       RestApiId: !Ref DinkumCoinRestApi
       ResourceId: !Ref DinkumCoinRestApiWalletsResource
       HttpMethod: GET      
-      AuthorizationType: AWS_IAM
+      AuthorizationType: NONE
       Integration:
         Type: AWS_PROXY
         IntegrationHttpMethod: POST
@@ -112,7 +112,7 @@ Resources:
       RestApiId: !Ref DinkumCoinRestApi
       ResourceId: !Ref DinkumCoinRestApiWalletByIdResource
       HttpMethod: GET      
-      AuthorizationType: AWS_IAM
+      AuthorizationType: NONE
       Integration:
         Type: AWS_PROXY
         IntegrationHttpMethod: POST
