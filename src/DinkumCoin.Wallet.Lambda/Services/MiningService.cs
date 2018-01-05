@@ -29,7 +29,7 @@ namespace DinkumCoin.Wallet.Lambda.Services
             } 
             else
             {
-                var newCoin = new Coin() { CreationDate = DateTime.Now, Id = new Guid() };
+                var newCoin = new Coin() { CreationDate = DateTime.Now, Id = Guid.NewGuid() };
                 return new MiningResult() { CoinCreated = true, NewCoin = newCoin };
             }
         }
