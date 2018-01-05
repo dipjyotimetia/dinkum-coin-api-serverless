@@ -41,8 +41,7 @@ namespace Build.Targets
              .Executes(() =>
              {
                  ProcessTasks.StartProcess(
-                     DotnetPath, $"publish -c Release /p:Version=\"{GetBuildVersion()}\" -o \"{Settings.PublishDirectory}\"", RootDirectory).AssertZeroExitCode();
-              //   File.Copy(Settings.PublishDirectory / "runtimes" / "linux" / "lib" / "netstandard1.3" / "System.Net.NetworkInformation.dll", Settings.PublishDirectory / "System.Net.NetworkInformation.dll");
+                     DotnetPath, $"publish src/DinkumCoin.Wallet.Lambda/DinkumCoin.Wallet.Lambda.csproj -c Release /p:Version=\"{GetBuildVersion()}\" -o \"{Settings.PublishDirectory}\"", RootDirectory).AssertZeroExitCode();
                  Directory.CreateDirectory(Settings.PackageDirectory);
             ZipFile.CreateFromDirectory(Settings.PublishDirectory, Settings.PackageDirectory / $"DinkumCoin.Api.Wallet.Lambda_{GetBuildVersion()}.zip");
              });
