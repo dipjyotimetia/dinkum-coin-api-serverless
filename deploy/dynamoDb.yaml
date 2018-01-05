@@ -37,6 +37,8 @@ Resources:
            Action:
              - dynamodb:GetItem
              - dynamodb:PutItem
+             - dynamodb:DescribeTable
+             - dynamodb:Scan
            Resource: arn:aws:dynamodb:*:*:table/Wallet
       Roles:
        - Ref: IamRoleLambdaExecution
