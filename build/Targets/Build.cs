@@ -9,8 +9,13 @@ using Nuke.Core.IO;
 using Nuke.Core.Tooling;
 using Nuke.Common.Tools.DotNet;
 
-using static Nuke.Common.Tools.DotNet.DotNetTasks;
+           
 
+using static Nuke.Common.Tools.DotNet.DotNetTasks;
+using System.Text;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace Build.Targets
 {
@@ -43,7 +48,17 @@ namespace Build.Targets
                  ProcessTasks.StartProcess(
                      DotnetPath, $"publish src/DinkumCoin.Wallet.Lambda/DinkumCoin.Wallet.Lambda.csproj -c Release /p:Version=\"{GetBuildVersion()}\" -o \"{Settings.PublishDirectory}\"", RootDirectory).AssertZeroExitCode();
                  Directory.CreateDirectory(Settings.PackageDirectory);
-            ZipFile.CreateFromDirectory(Settings.PublishDirectory, Settings.PackageDirectory / $"DinkumCoin.Api.Wallet.Lambda_{GetBuildVersion()}.zip");
+
+                 if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                 {
+                     ZipFile.CreateFromDirectory(Settings.PublishDirectory, Settings.PackageDirectory / $"DinkumCoin.Api.Wallet.Lambda_{GetBuildVersion()}.zip");
+                 }
+                 else
+                 {
+                    BundleWithZipCLI("zip", Settings.PackageDirectory / $"DinkumCoin.Api.Wallet.Lambda_{GetBuildVersion()}.zip", Settings.PublishDirectory, false);
+
+                 }
+
              });
 
         public Target Test => _ => _
@@ -90,6 +105,80 @@ namespace Build.Targets
         private string GetSemanticBuildVersion()
         {
             return $"1.0.{Git.GetCommitCount(RootDirectory)}";
+        }
+
+
+
+        private static void BundleWithZipCLI(string zipCLI, string zipArchivePath, string publishLocation, bool flattenRuntime)
+        {
+            var args = new StringBuilder("\"" + zipArchivePath + "\"");
+
+            // so that we can archive content in subfolders, take the length of the
+            // path to the root publish location and we'll just substring the
+            // found files so the subpaths are retained
+            var publishRootLength = publishLocation.Length;
+            if (publishLocation[publishRootLength - 1] != Path.DirectorySeparatorChar)
+                publishRootLength++;
+
+            var allFiles = GetFilesToIncludeInArchive(publishLocation, flattenRuntime);
+            foreach (var kvp in allFiles)
+            {
+                args.AppendFormat(" \"{0}\"", kvp.Key);
+            }
+
+            var psiZip = new ProcessStartInfo
+            {
+                FileName = zipCLI,
+                Arguments = args.ToString(),
+                WorkingDirectory = publishLocation,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                UseShellExecute = false,
+                CreateNoWindow = true
+            };
+
+            var handler = (DataReceivedEventHandler)((o, e) =>
+            {
+                if (string.IsNullOrEmpty(e.Data))
+                    return;
+            });
+
+            using (var proc = new Process())
+            {
+                proc.StartInfo = psiZip;
+                proc.Start();
+
+                proc.ErrorDataReceived += handler;
+                proc.OutputDataReceived += handler;
+                proc.BeginOutputReadLine();
+                proc.BeginErrorReadLine();
+
+                proc.EnableRaisingEvents = true;
+                proc.WaitForExit();
+
+            }
+        }
+
+
+        private static IDictionary<string, string> GetFilesToIncludeInArchive(string publishLocation, bool flattenRuntime)
+        {
+            string RUNTIME_FOLDER_PREFIX = "runtimes" + Path.DirectorySeparatorChar;
+
+            var includedFiles = new Dictionary<string, string>();
+            var allFiles = Directory.GetFiles(publishLocation, "*.*", SearchOption.AllDirectories);
+            foreach (var file in allFiles)
+            {
+                var relativePath = file.Substring(publishLocation.Length);
+                if (relativePath[0] == Path.DirectorySeparatorChar)
+                    relativePath = relativePath.Substring(1);
+
+                if (flattenRuntime && relativePath.StartsWith(RUNTIME_FOLDER_PREFIX))
+                    continue;
+
+                includedFiles[relativePath] = file;
+            }
+
+            return includedFiles;
         }
     }
 }
