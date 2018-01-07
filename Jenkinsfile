@@ -73,7 +73,9 @@ pipeline {
 				deleteDir()
 				unstash "solution"
 
-			docker.image('denvazh/gatling:2.2.2').withRun('-rm -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/user-files:/opt/gatling/user-files -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/results:/opt/gatling/results  gatling:local -s DinkumCoinSimulation') 
+			docker.image('denvazh/gatling:2.2.2').withRun('-rm -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/user-files:/opt/gatling/user-files -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/results:/opt/gatling/results  gatling:local -s DinkumCoinSimulation') { c -> 
+			echo 'Running performance tests'
+			}
 
 			stash name: "solution", useDefaultExcludes: false
 
