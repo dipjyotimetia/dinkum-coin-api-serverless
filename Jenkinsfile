@@ -54,7 +54,7 @@ pipeline {
 	
 			}
 		}
-		stage("Deploy -> Dev") {
+		stage("Deploy > Dev") {
 			agent { label 'dotnetcore' }
 
 
@@ -74,7 +74,7 @@ pipeline {
 				unstash "solution"
 
 			script {
-				docker.image('denvazh/gatling:2.2.2').withRun('-rm -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/user-files:/opt/gatling/user-files -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/results:/opt/gatling/results  gatling:local -s DinkumCoinSimulation') { c -> 
+				docker.image('denvazh/gatling:2.2.2').withRun("-rm -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/user-files:/opt/gatling/user-files -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/results:/opt/gatling/results  gatling:local -s DinkumCoinSimulation") { c -> 
 						/* Running performance tests  */
 				}
 			}
@@ -84,7 +84,7 @@ pipeline {
 
 		}
 
-		stage("Promote -> UAT") {
+		stage("Promote > UAT") {
 			agent { label 'dotnetcore' }
 
 		steps { 
