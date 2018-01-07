@@ -74,8 +74,8 @@ pipeline {
 				unstash "solution"
 
 			script {
-				docker.image('node:7-alpine').withRun('-p 3000:3000') { c -> 
-					sh 'node --version'
+				docker.image('denvazh/gatling:2.2.2').withRun('-rm -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/user-files:/opt/gatling/user-files -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/results:/opt/gatling/results  gatling:local -s DinkumCoinSimulation') { c -> 
+					sh 'echo 'running performance tests'
 				}
 			}
 			stash name: "solution", useDefaultExcludes: false
