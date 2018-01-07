@@ -73,10 +73,11 @@ pipeline {
 				deleteDir()
 				unstash "solution"
 
-			docker.image('node:7-alpine').withRun('-p 3000:3000') { c -> 
-				sh 'node --version'
+			script {
+				docker.image('node:7-alpine').withRun('-p 3000:3000') { c -> 
+					sh 'node --version'
+				}
 			}
-
 			stash name: "solution", useDefaultExcludes: false
 
 			}
