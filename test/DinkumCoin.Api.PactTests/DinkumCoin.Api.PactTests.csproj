@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\DinkumCoin.Api.Client\DinkumCoin.Api.Client.csproj" />
+    <ProjectReference Include="..\..\src\DinkumCoin.Api.Client\DinkumCoin.Api.Client.csproj" />
   </ItemGroup>
 
 </Project>

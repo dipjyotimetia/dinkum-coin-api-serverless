@@ -25,7 +25,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution", "solution", "{52
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DinkumCoin.Api.Client", "src\DinkumCoin.Api.Client\DinkumCoin.Api.Client.csproj", "{9A843FE4-83F0-4132-8A5B-8EBFF01B9D8D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DinkumCoin.Api.PactTests", "DinkumCoin.Api.IntegrationTests\DinkumCoin.Api.PactTests.csproj", "{08D5F93D-0C5E-44EE-9147-3C657E74EB4A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DinkumCoin.Api.PactTests", "test\DinkumCoin.Api.PactTests\DinkumCoin.Api.PactTests.csproj", "{08D5F93D-0C5E-44EE-9147-3C657E74EB4A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

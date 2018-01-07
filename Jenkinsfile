@@ -5,6 +5,11 @@ pipeline {
 
 	options { skipDefaultCheckout() }
 	
+	environment { 
+		AWS_ACCESS_KEY_ID = credentials('AWSAccessKey') 
+		AWS_SECRET_ACCESS_KEY= credentials('AWSSecretKey') 
+	}
+
 	stages {
 		stage("Build") {
 			agent { label 'dotnetcore' }
@@ -41,11 +46,6 @@ pipeline {
 		stage("Package & Upload") {
 			agent { label 'dotnetcore' }
 
-			environment { 
-				AWS_ACCESS_KEY_ID = credentials('AWSAccessKey') 
-				AWS_SECRET_ACCESS_KEY= credentials('AWSSecretKey') 
-			}
-
 			steps {
 				deleteDir()
 				unstash "solution"
@@ -57,16 +57,39 @@ pipeline {
 		stage("Deploy -> Dev") {
 			agent { label 'dotnetcore' }
 
-			environment { 
-				AWS_ACCESS_KEY_ID = credentials('AWSAccessKey') 
-				AWS_SECRET_ACCESS_KEY= credentials('AWSSecretKey') 
-			}
 
 			steps { 
+				deleteDir()
+				unstash "solution"
 				deploy "DevEnv", "dev", buildVersion, true 
 			}
 
-		}		
+		}
+
+		stage("Performance Test") {
+			agent { label 'dockerhost' }
+
+			steps { 
+				deleteDir()
+				unstash "solution"
+
+			docker.image('denvazh/gatling:2.2.2').withRun('-rm -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/user-files:/opt/gatling/user-files -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/results:/opt/gatling/results  gatling:local -s DinkumCoinSimulation') 
+
+			stash name: "solution", useDefaultExcludes: false
+
+			}
+
+		}
+
+		stage("Promote -> UAT") {
+			agent { label 'dotnetcore' }
+
+		steps { 
+				deleteDir()
+				unstash "solution"
+				echo 'Not implemented'
+			}
+		}			
 	}
 	post {
 		always {
