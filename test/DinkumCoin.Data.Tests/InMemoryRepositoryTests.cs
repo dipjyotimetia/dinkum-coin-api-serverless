@@ -6,12 +6,12 @@ using Xunit.Abstractions;
 
 namespace DinkumCoin.Data.Tests
 {
-    public class DynamoRepositoryTests : IClassFixture<RepoTestFixture>
+    public class InMemoryRepositoryTests : IClassFixture<RepoTestFixture>
     {
         private readonly ITestOutputHelper _output;
         private readonly RepoTestFixture _testFixture;
 
-        public DynamoRepositoryTests(RepoTestFixture testFixture, ITestOutputHelper output)
+        public InMemoryRepositoryTests(RepoTestFixture testFixture, ITestOutputHelper output)
         {
             _output = output;
             _testFixture = testFixture;
@@ -23,7 +23,7 @@ namespace DinkumCoin.Data.Tests
         public void AddWalletTest()
         {
             // Arrange
-            var repo = new DynamoRepository();
+            var repo = new InMemoryRepository();
             var myNewWallet = new Wallet() { Id = Guid.NewGuid(), WalletName = "Test Wallet-"+Guid.NewGuid(), CreationDate = DateTime.Now };
 
             // Act
@@ -38,7 +38,7 @@ namespace DinkumCoin.Data.Tests
         public void GetAllWalletsTest()
         {
             // Arrange
-            var repo = new DynamoRepository();
+            var repo = new InMemoryRepository();
 
             // Act
             var repoResult = repo.GetAllWallets().Result;
@@ -52,7 +52,7 @@ namespace DinkumCoin.Data.Tests
         public void GetSpecificWalletTest()
         {
             // Arrange
-            var repo = new DynamoRepository();
+            var repo = new InMemoryRepository();
 
             var walletId = new Guid("dd9fbf9b-a500-4c00-b00d-069ea4080004");
 
@@ -69,7 +69,7 @@ namespace DinkumCoin.Data.Tests
         public void AddCoinToWalletTest()
         {
             // Arrange
-            var repo = new DynamoRepository();
+            var repo = new InMemoryRepository();
 
             var walletId = new Guid("dd9fbf9b-a500-4c00-b00d-069ea4080004");
             var coin = new Coin() { Id = Guid.NewGuid(), CreationDate = DateTime.Now };

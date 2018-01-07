@@ -2,17 +2,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2005
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DinkumCoin.Wallet.Lambda", "src\DinkumCoin.Wallet.Lambda\DinkumCoin.Wallet.Lambda.csproj", "{41DAD969-ED13-4D02-9FA6-1CE678AF8E46}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DinkumCoin.Wallet.Lambda", "src\DinkumCoin.Wallet.Lambda\DinkumCoin.Wallet.Lambda.csproj", "{41DAD969-ED13-4D02-9FA6-1CE678AF8E46}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DinkumCoin.Wallet.Lambda.Tests", "test\DinkumCoin.Wallet.Lambda.Tests\DinkumCoin.Wallet.Lambda.Tests.csproj", "{C04BD018-AC62-4D36-B28A-CD6788D47F7F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DinkumCoin.Wallet.Lambda.Tests", "test\DinkumCoin.Wallet.Lambda.Tests\DinkumCoin.Wallet.Lambda.Tests.csproj", "{C04BD018-AC62-4D36-B28A-CD6788D47F7F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Build", "build\Build.csproj", "{4DB6A591-31BF-4ED5-AFB8-1117032138B9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Build", "build\Build.csproj", "{4DB6A591-31BF-4ED5-AFB8-1117032138B9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DinkumCoin.Core", "src\DinkumCoin.Core\DinkumCoin.Core.csproj", "{C2468849-1258-461C-AB66-E8D772C14756}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DinkumCoin.Core", "src\DinkumCoin.Core\DinkumCoin.Core.csproj", "{C2468849-1258-461C-AB66-E8D772C14756}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DinkumCoin.Data", "src\DinkumCoin.Data\DinkumCoin.Data.csproj", "{58AE14D2-B76D-498E-9B31-C5D9610A941C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DinkumCoin.Data", "src\DinkumCoin.Data\DinkumCoin.Data.csproj", "{58AE14D2-B76D-498E-9B31-C5D9610A941C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DinkumCoin.Data.Tests", "test\DinkumCoin.Data.Tests\DinkumCoin.Data.Tests.csproj", "{D541C077-805A-403A-A399-3F506AF72A68}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DinkumCoin.Data.Tests", "test\DinkumCoin.Data.Tests\DinkumCoin.Data.Tests.csproj", "{D541C077-805A-403A-A399-3F506AF72A68}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{839583B0-04EE-494F-BC23-3086670CB20C}"
 EndProject
@@ -23,11 +23,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution", "solution", "{52
 		Jenkinsfile = Jenkinsfile
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DinkumCoin.Api.PactTests", "test\DinkumCoin.Api.PactTests\DinkumCoin.Api.PactTests.csproj", "{7EFB6B5E-220B-4872-9B87-DE504E9969F2}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DinkumCoin.Api.Client", "src\DinkumCoin.Api.Client\DinkumCoin.Api.Client.csproj", "{9A843FE4-83F0-4132-8A5B-8EBFF01B9D8D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DinkumCoin.Api.IntegrationTests", "DinkumCoin.Api.IntegrationTests\DinkumCoin.Api.IntegrationTests.csproj", "{08D5F93D-0C5E-44EE-9147-3C657E74EB4A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DinkumCoin.Api.PactTests", "DinkumCoin.Api.IntegrationTests\DinkumCoin.Api.PactTests.csproj", "{08D5F93D-0C5E-44EE-9147-3C657E74EB4A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,10 +57,6 @@ Global
 		{D541C077-805A-403A-A399-3F506AF72A68}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D541C077-805A-403A-A399-3F506AF72A68}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D541C077-805A-403A-A399-3F506AF72A68}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7EFB6B5E-220B-4872-9B87-DE504E9969F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7EFB6B5E-220B-4872-9B87-DE504E9969F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7EFB6B5E-220B-4872-9B87-DE504E9969F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7EFB6B5E-220B-4872-9B87-DE504E9969F2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9A843FE4-83F0-4132-8A5B-8EBFF01B9D8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9A843FE4-83F0-4132-8A5B-8EBFF01B9D8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A843FE4-83F0-4132-8A5B-8EBFF01B9D8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -81,7 +75,6 @@ Global
 		{C2468849-1258-461C-AB66-E8D772C14756} = {839583B0-04EE-494F-BC23-3086670CB20C}
 		{58AE14D2-B76D-498E-9B31-C5D9610A941C} = {839583B0-04EE-494F-BC23-3086670CB20C}
 		{D541C077-805A-403A-A399-3F506AF72A68} = {C4F7F346-5561-4D1A-876A-A9C933051470}
-		{7EFB6B5E-220B-4872-9B87-DE504E9969F2} = {C4F7F346-5561-4D1A-876A-A9C933051470}
 		{9A843FE4-83F0-4132-8A5B-8EBFF01B9D8D} = {839583B0-04EE-494F-BC23-3086670CB20C}
 		{08D5F93D-0C5E-44EE-9147-3C657E74EB4A} = {C4F7F346-5561-4D1A-876A-A9C933051470}
 	EndGlobalSection
@@ -93,14 +86,5 @@ Global
 		$0.DotNetNamingPolicy = $1
 		$1.DirectoryNamespaceAssociation = PrefixedHierarchical
 		$0.TextStylePolicy = $3
-		$2.FileWidth = 80
-		$2.TabsToSpaces = True
-		$2.scope = text/plain
-		$3.inheritsSet = null
-		$3.scope = text/x-csharp
-		$0.CSharpFormattingPolicy = $4
-		$4.scope = text/x-csharp
-		$0.StandardHeader = $5
-		$0.VersionControlPolicy = $6
 	EndGlobalSection
 EndGlobal
