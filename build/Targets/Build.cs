@@ -66,13 +66,19 @@ namespace Build.Targets
              .DependsOn(Compile)
              .Executes(() =>
              {
-             //DotNetTest(settings => settings
-             //      .SetProjectFile(Settings.TestDirectory / "DinkumCoin.Data.Tests")
-             //.SetNoBuild(true));
-             DotNetTest(settings => settings
-                        .SetProjectFile(Settings.TestDirectory / "DinkumCoin.Wallet.Lambda.Tests")
-                        .SetLogger("xunit;LogFilePath=TestResults.xml")
-                     .SetNoBuild(true));
+                 //DotNetTest(settings => settings
+                 //      .SetProjectFile(Settings.TestDirectory / "DinkumCoin.Data.Tests")
+                 //.SetNoBuild(true));
+                 DotNetTest(settings => settings
+                            .SetProjectFile(Settings.TestDirectory / "DinkumCoin.Wallet.Lambda.Tests")
+                            .SetLogger("xunit;LogFilePath=TestResults.xml")
+                         .SetNoBuild(true));
+
+                 DotNetTest(settings => settings
+                         .SetProjectFile(Settings.TestDirectory / "DinkumCoin.Data.Tests")
+                         .SetLogger("xunit;LogFilePath=TestResults.xml")
+                         .SetNoBuild(true));
+
              });
 
         public Target Upload => _ => _

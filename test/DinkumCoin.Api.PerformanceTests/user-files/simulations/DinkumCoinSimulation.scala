@@ -9,8 +9,8 @@ import scala.concurrent.duration._
 
 class DinkumCoinSimulation extends Simulation {
 
-  val HOST = "https://sywq3pqw4c.execute-api.ap-southeast-2.amazonaws.com"
-  var RESOURCE = "/dev/api/wallets"
+  val HOST = "https://8lyhztzwh3.execute-api.ap-southeast-2.amazonaws.com"
+  var RESOURCE = "/Dev/api/wallets"
   val QueryParams = Map[String, String]()
 
 
