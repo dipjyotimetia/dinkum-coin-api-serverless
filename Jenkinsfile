@@ -77,7 +77,7 @@ pipeline {
 /*
 			script {
 				docker.image('denvazh/gatling:2.2.2').withRun("-it -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/user-files:/opt/gatling/user-files -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/results:/opt/gatling/results   denvazh/gatling  -s DinkumCoinSimulation") { c -> 
-						/* Running performance tests  */
+					
 				}
 			}
 */
