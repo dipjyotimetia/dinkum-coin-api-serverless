@@ -48,6 +48,7 @@ namespace Build.Targets
                  ProcessTasks.StartProcess(
                      DotnetPath, $"publish src/DinkumCoin.Wallet.Lambda/DinkumCoin.Wallet.Lambda.csproj -c Release /p:Version=\"{GetBuildVersion()}\" -o \"{Settings.PublishDirectory}\"", RootDirectory).AssertZeroExitCode();
                  Directory.CreateDirectory(Settings.PackageDirectory);
+                 Directory.CreateDirectory(Settings.PublishDirectory);
 
                  if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                  {
@@ -73,7 +74,7 @@ namespace Build.Targets
                             .SetProjectFile(Settings.TestDirectory / "DinkumCoin.Wallet.Lambda.Tests")
                             .SetLogger("xunit;LogFilePath=TestResults.xml")
                          .SetNoBuild(true));
-
+                 
 
              });
 
