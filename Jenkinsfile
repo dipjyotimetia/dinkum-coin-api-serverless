@@ -72,15 +72,15 @@ pipeline {
 				deleteDir()
 				unstash "solution"
 
-			sh "docker run --rm -i -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/user-files:/opt/gatling/user-files -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/results:/opt/gatling/results denvazh/gatling -s DinkumCoinSimulation"	
+		//	sh "docker run --rm -i -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/user-files:/opt/gatling/user-files -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/results:/opt/gatling/results denvazh/gatling -s DinkumCoinSimulation"	
 
-/*
+
 			script {
-				docker.image('denvazh/gatling:2.2.2').withRun("-it -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/user-files:/opt/gatling/user-files -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/results:/opt/gatling/results   denvazh/gatling  -s DinkumCoinSimulation") { c -> 
-					
+				docker.image('stu-p/gatling').withRun("-i -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/user-files:/opt/gatling/user-files -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/results:/opt/gatling/results") { c -> 
+					sh "gatling.sh -s DinkumCoinSimulation"
 				}
 			}
-*/
+
 			stash name: "solution", useDefaultExcludes: false
 
 			}
