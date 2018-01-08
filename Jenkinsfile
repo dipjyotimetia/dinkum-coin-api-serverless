@@ -72,7 +72,7 @@ pipeline {
 				deleteDir()
 				unstash "solution"
 
-			sh "docker run --rm -i -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/user-files:/opt/gatling/user-files -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/results:/opt/gatling/results stu-p/gatling -s DinkumCoinSimulation"	
+			sh "docker run -u jenkins --rm -i -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/user-files:/opt/gatling/user-files -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/results:/opt/gatling/results stu-p/gatling -s DinkumCoinSimulation"	
 
 
 			// script {
