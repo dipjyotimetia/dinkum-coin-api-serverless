@@ -74,10 +74,6 @@ namespace Build.Targets
                             .SetLogger("xunit;LogFilePath=TestResults.xml")
                          .SetNoBuild(true));
 
-                 DotNetTest(settings => settings
-                         .SetProjectFile(Settings.TestDirectory / "DinkumCoin.Data.Tests")
-                         .SetLogger("xunit;LogFilePath=TestResults.xml")
-                         .SetNoBuild(true));
 
              });
 
