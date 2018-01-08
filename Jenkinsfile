@@ -66,19 +66,15 @@ pipeline {
 		}
 
 		stage("Performance Test") {
-			agent {
-				docker {
-					image 'stu-p/gatling'
-					args "-i -v ./test/DinkumCoin.Api.PerformanceTests/user-files:/opt/gatling/user-files -v ./test/DinkumCoin.Api.PerformanceTests/results:/opt/gatling/results"
-				}
-			}
-			steps { 
-		//		deleteDir()
-			//	unstash "solution"
 
-				sh 'gatling.sh -s DinkumCoinSimulation'
+			steps { 
+				deleteDir()
+				unstash "solution"
+
+			//	sh 'gatling.sh -s DinkumCoinSimulation'
 
 			//sh "docker run --user=jenkins --rm -i -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/user-files:/opt/gatling/user-files -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/results:/opt/gatling/results stu-p/gatling -s DinkumCoinSimulation"	
+sh "docker run --user=jenkins --rm -i -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/user-files:/opt/gatling/user-files --mount type=bind,src=${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/results,dst=/opt/gatling/results stu-p/gatling -s DinkumCoinSimulation"	
 
 
 			// script {
