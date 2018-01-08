@@ -66,21 +66,23 @@ pipeline {
 		}
 
 		stage("Performance Test") {
-			agent {         
-				docker {
-					image 'stu-p/gatling'
+//			agent {         
+//				docker {
+//					image 'stu-p/gatling'
 				//	args '-u jenkins'
-				} 
-			}
+//				} 
+//			}
+			agent { label 'dockerhost' }
+
 			steps { 
 				deleteDir()
 				unstash "solution"
 
-sh "cp ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/user-files/simulations/* /opt/gatling/user-files/simulations/"
-				sh "/opt/gatling/bin/gatling.sh -s DinkumCoinSimulation -rf ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/results"
+//sh "cp ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/user-files/simulations/* /opt/gatling/user-files/simulations/"
+//				sh "/opt/gatling/bin/gatling.sh -s DinkumCoinSimulation -rf ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/results"
 
 			//sh "docker run --user=jenkins --rm -i -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/user-files:/opt/gatling/user-files -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/results:/opt/gatling/results stu-p/gatling -s DinkumCoinSimulation"	
-        //sh "docker run --user=jenkins --rm -i -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/user-files:/opt/gatling/user-files --mount type=bind,src=${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/results,dst=/opt/gatling/results stu-p/gatling -s DinkumCoinSimulation"	
+        sh "docker run --user=jenkins --rm -i -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/user-files:/opt/gatling/user-files --mount type=bind,src=${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/results,dst=/opt/gatling/results stu-p/gatling -s DinkumCoinSimulation"	
 
 
 			// script {
