@@ -47,8 +47,7 @@ pipeline {
 			agent { label 'dotnetcore' }
 
 			steps {
-				deleteDir()
-				unstash "solution"
+
 				sh 'dotnet run --project \"build/Build.csproj\" -target "Package" -NoDeps'
 				sh 'dotnet run --project \"build/Build.csproj\" -target "Upload" -NoDeps'
 	
