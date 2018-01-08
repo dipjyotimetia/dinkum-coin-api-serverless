@@ -69,12 +69,12 @@ pipeline {
 			agent {
 				docker {
 					image 'stu-p/gatling'
-					args '-i -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/user-files:/opt/gatling/user-files -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/results:/opt/gatling/results'
+					args "-i -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/user-files:/opt/gatling/user-files -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/results:/opt/gatling/results"
 				}
 			}
 			steps { 
-				deleteDir()
-				unstash "solution"
+		//		deleteDir()
+			//	unstash "solution"
 
 				sh 'gatling.sh -s DinkumCoinSimulation'
 
@@ -86,7 +86,7 @@ pipeline {
 					
 			// 	}
 			
-			stash name: "solution", useDefaultExcludes: false
+		//	stash name: "solution", useDefaultExcludes: false
 
 			}
 
