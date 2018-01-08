@@ -72,12 +72,12 @@ pipeline {
 				deleteDir()
 				unstash "solution"
 
-		//	sh "docker run --rm -i -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/user-files:/opt/gatling/user-files -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/results:/opt/gatling/results denvazh/gatling -s DinkumCoinSimulation"	
+		//	sh "docker run --rm -i  --entrypoint gatling.sh -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/user-files:/opt/gatling/user-files -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/results:/opt/gatling/results denvazh/gatling -s DinkumCoinSimulation"	
 
 
 			script {
-				docker.image('denvazh/gatling').withRun("-i -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/user-files:/opt/gatling/user-files -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/results:/opt/gatling/results --entrypoint=/bin/sh") { c -> 
-					sh "/opt/gatling/gatling.sh -s DinkumCoinSimulation"
+				docker.image('denvazh/gatling').withRun("-i -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/user-files:/opt/gatling/user-files -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/results:/opt/gatling/results ") { c -> 
+					
 				}
 			}
 
