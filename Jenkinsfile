@@ -69,7 +69,7 @@ pipeline {
 			agent {         
 				docker {
 					image 'stu-p/gatling'
-					//args '-p 3000:3000'
+					args '-u jenkins'
 				} 
 			}
 			steps { 
