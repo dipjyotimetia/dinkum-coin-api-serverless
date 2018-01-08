@@ -79,8 +79,7 @@ pipeline {
 			// 	docker.image('denvazh/gatling').withRun("-i -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/user-files:/opt/gatling/user-files -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/results:/opt/gatling/results ") { c -> 
 					
 			// 	}
-			}
-
+			
 			stash name: "solution", useDefaultExcludes: false
 
 			}
