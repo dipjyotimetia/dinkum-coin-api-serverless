@@ -66,6 +66,7 @@ pipeline {
 		}
 
 		stage("Performance Test") {
+			agent { label 'dockerhost' }
 
 			steps { 
 				deleteDir()
