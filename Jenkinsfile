@@ -77,7 +77,7 @@ pipeline {
 				unstash "solution"
 
 
-				sh '/opt/gatling/gatling.sh -s DinkumCoinSimulation'
+				sh "/opt/gatling/bin/gatling.sh -s DinkumCoinSimulation -rf ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/results -sf ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/user-files"
 
 			//sh "docker run --user=jenkins --rm -i -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/user-files:/opt/gatling/user-files -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/results:/opt/gatling/results stu-p/gatling -s DinkumCoinSimulation"	
         //sh "docker run --user=jenkins --rm -i -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/user-files:/opt/gatling/user-files --mount type=bind,src=${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/results,dst=/opt/gatling/results stu-p/gatling -s DinkumCoinSimulation"	
