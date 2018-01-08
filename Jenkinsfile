@@ -69,7 +69,7 @@ pipeline {
 			agent {
 				docker {
 					image 'stu-p/gatling'
-					args "-i -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/user-files:/opt/gatling/user-files -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/results:/opt/gatling/results"
+					args "-i -v ./test/DinkumCoin.Api.PerformanceTests/user-files:/opt/gatling/user-files -v ./test/DinkumCoin.Api.PerformanceTests/results:/opt/gatling/results"
 				}
 			}
 			steps { 
