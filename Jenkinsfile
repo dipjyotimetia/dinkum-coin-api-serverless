@@ -72,11 +72,15 @@ pipeline {
 				deleteDir()
 				unstash "solution"
 
+			sh "docker run --rm -it -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/user-files:/opt/gatling/user-files -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/results:/opt/gatling/results denvazh/gatling -s DinkumCoinSimulation"	
+
+/*
 			script {
 				docker.image('denvazh/gatling:2.2.2').withRun("-it -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/user-files:/opt/gatling/user-files -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/results:/opt/gatling/results   denvazh/gatling  -s DinkumCoinSimulation") { c -> 
 						/* Running performance tests  */
 				}
 			}
+*/
 			stash name: "solution", useDefaultExcludes: false
 
 			}
@@ -102,6 +106,7 @@ pipeline {
 			thresholds: [[$class: 'FailedThreshold', unstableThreshold: '1']],
 			tools: [[ $class: 'XUnitDotNetTestType', pattern: '**/TestResults.xml']]])
 
+			gatlingArchive()
 			// cobertura autoUpdateHealth: false, autoUpdateStability: false, coberturaReportFile: '**/*Cobertura.coverageresults', conditionalCoverageTargets: '70, 0, 0', failUnhealthy: false, failUnstable: false, lineCoverageTargets: '80, 0, 0', maxNumberOfBuilds: 0, methodCoverageTargets: '80, 0, 0', onlyStable: false, sourceEncoding: 'ASCII', zoomCoverageChart: false
 		}
 	}
