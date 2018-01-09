@@ -82,13 +82,15 @@ pipeline {
 //				sh "/opt/gatling/bin/gatling.sh -s DinkumCoinSimulation -rf ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/results"
 
 			//sh "docker run --user=jenkins --rm -i -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/user-files:/opt/gatling/user-files -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/results:/opt/gatling/results stu-p/gatling -s DinkumCoinSimulation"	
-        sh "docker run --user=jenkins --entrypoint=gatling.sh --rm -i -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/user-files:/opt/gatling/user-files --mount type=bind,src=${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/results,dst=/opt/gatling/results stu-p/gatling -s DinkumCoinSimulation"	
+  
+  //working
+   // sh "docker run --user=jenkins --entrypoint=gatling.sh --rm -i -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/user-files:/opt/gatling/user-files --mount type=bind,src=${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/results,dst=/opt/gatling/results stu-p/gatling -s DinkumCoinSimulation"	
 
 
-			// script {
-			// 	docker.image('denvazh/gatling').withRun("-i -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/user-files:/opt/gatling/user-files -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/results:/opt/gatling/results ") { c -> 
-					
-			// 	}
+			script {
+				docker.image('stu-p/gatling').withRun("-i -v --user=jenkins ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/user-files:/opt/gatling/user-files -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/results:/opt/gatling/results ") { c -> 
+					sh 'bin/gatling.sh -s DinkumCoinSimulation'
+				}
 			
 			stash name: "solution", useDefaultExcludes: false
 
