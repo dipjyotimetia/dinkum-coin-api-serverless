@@ -89,7 +89,7 @@ pipeline {
 
 			script {
 				docker.image('stu-p/gatling').withRun("-i --user=jenkins --entrypoint=/bin/sh -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/user-files:/opt/gatling/user-files -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/results:/opt/gatling/results ") { c -> 
-					//sh 'bin/gatling.sh -s DinkumCoinSimulation'
+					sh '/opt/gatling/bin/gatling.sh -s DinkumCoinSimulation'
 					sh 'pwd'
 					sh 'ls -la'
 
