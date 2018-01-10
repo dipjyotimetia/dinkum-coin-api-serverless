@@ -21,8 +21,8 @@ class DinkumCoinSimulation extends Simulation {
       get(RESOURCE)).
     pause(1)
 
-  setUp(scn.inject(constantUsersPerSec(2) during (1 minutes))).protocols(httpConfig)
-    .assertions(global.successfulRequests.percent.is(100))
+  setUp(scn.inject(constantUsersPerSec(1) during (1 minutes))).protocols(httpConfig)
+    .assertions(global.successfulRequests.percent.is(90))
 
 
 }
