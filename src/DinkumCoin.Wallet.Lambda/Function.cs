@@ -11,6 +11,7 @@ using DinkumCoin.Wallet.Lambda.Contracts;
 using System.ComponentModel.DataAnnotations;
 using DinkumCoin.Core.Contracts;
 using DinkumCoin.Data.Repositories;
+using System.Collections.Generic;
 
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.Json.JsonSerializer))]
 namespace DinkumCoin.Wallet.Lambda
@@ -19,6 +20,8 @@ namespace DinkumCoin.Wallet.Lambda
     public class Function
     {
         private IContainer _container = null;
+
+        private Dictionary<string, string> _headers = new Dictionary<string, string>() { { "Access-Control-Allow-Origin", "*" } };
 
         public Function(IContainer container)
         {
@@ -41,7 +44,8 @@ namespace DinkumCoin.Wallet.Lambda
                 var response = new APIGatewayProxyResponse
                 {
                     StatusCode = (int)HttpStatusCode.OK,
-                    Body = JsonConvert.SerializeObject(allWallets)
+                    Body = JsonConvert.SerializeObject(allWallets),
+                    Headers=_headers
                 };
                 return response;
             }
@@ -62,7 +66,8 @@ namespace DinkumCoin.Wallet.Lambda
                 var response = new APIGatewayProxyResponse
                 {
                     StatusCode = (int)HttpStatusCode.OK,
-                    Body = JsonConvert.SerializeObject(wallet)
+                    Body = JsonConvert.SerializeObject(wallet),
+                    Headers = _headers
                 };
                 return response;
             }
@@ -89,7 +94,8 @@ namespace DinkumCoin.Wallet.Lambda
                     var response = new APIGatewayProxyResponse
                     {
                         StatusCode = (int)HttpStatusCode.Created,
-                        Body = JsonConvert.SerializeObject(wallet)
+                        Body = JsonConvert.SerializeObject(wallet),
+                        Headers = _headers
                     };
                     return response;
                 }
@@ -117,7 +123,8 @@ namespace DinkumCoin.Wallet.Lambda
             var response = new APIGatewayProxyResponse
             {
                 StatusCode = (int)HttpStatusCode.BadRequest,
-                Body = message
+                Body = message,
+                Headers = _headers
             };
             return response;
         }
@@ -127,7 +134,8 @@ namespace DinkumCoin.Wallet.Lambda
             var response = new APIGatewayProxyResponse
             {
                 StatusCode = (int)HttpStatusCode.NotFound,
-                Body = message
+                Body = message,
+                Headers = _headers
             };
             return response;
         }
