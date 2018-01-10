@@ -66,44 +66,15 @@ pipeline {
 		}
 
 		stage("Performance Test") {
-			agent {         
-				docker {
-					image 'stu-p/gatling'
-					args "--user jenkins  -i -v "+${env.WORKSPACE}+"/test/DinkumCoin.Api.PerformanceTests/user-files:/opt/gatling/user-files -v "+${env.WORKSPACE}+"/test/DinkumCoin.Api.PerformanceTests/results:/opt/gatling/results"
-				} 
-			}
-//			agent { label 'dockerhost' }
+
+        	agent { label 'dockerhost' }
 
 			steps { 
 				deleteDir()
 				unstash "solution"
-
-				sh 'pwd'
-				sh 'ls -al'
-				sh '/opt/gatling/bin/gatling.sh  -s DinkumCoinSimulation'
-
-
-//sh "cp ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/user-files/simulations/* /opt/gatling/user-files/simulations/"
-//				sh "/opt/gatling/bin/gatling.sh -s DinkumCoinSimulation -rf ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/results"
-
-			//sh "docker run --user=jenkins --rm -i -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/user-files:/opt/gatling/user-files -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/results:/opt/gatling/results stu-p/gatling -s DinkumCoinSimulation"	
-  
-  //working
-   // sh "docker run --user=jenkins --entrypoint=gatling.sh --rm -i -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/user-files:/opt/gatling/user-files --mount type=bind,src=${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/results,dst=/opt/gatling/results stu-p/gatling -s DinkumCoinSimulation"	
-
-
-			// script {
-			// 	docker.image('stu-p/gatling').withRun("-i --user=jenkins --entrypoint=/bin/sh -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/user-files:/opt/gatling/user-files -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/results:/opt/gatling/results ") { c -> 
-			// 		sh '/opt/gatling/bin/gatling.sh -s DinkumCoinSimulation'
-			// 		sh 'pwd'
-			// 		sh 'ls -la'
-
-			// 	}
-			// }
-			stash name: "solution", useDefaultExcludes: false
-
+                sh "docker run --user=jenkins --entrypoint=gatling.sh --rm -i -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/user-files:/opt/gatling/user-files --mount type=bind,src=${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/results,dst=/opt/gatling/results stu-p/gatling -s DinkumCoinSimulation"	
+                stash name: "solution", useDefaultExcludes: false
 			}
-
 		}
 
 		stage("Promote > UAT") {
