@@ -49,8 +49,7 @@ pipeline {
 			steps {
 
 				sh 'dotnet run --project \"build/Build.csproj\" -target "Package" -NoDeps'
-				sh 'dotnet run --project \"build/Build.csproj\" -target "Upload" -NoDeps'
-	
+				sh 'dotnet run --project \"build/Build.csproj\" -target "Upload" -NoDeps'	
 			}
 		}
 		stage("Deploy > Dev") {
@@ -62,9 +61,15 @@ pipeline {
 				unstash "solution"
 				deploy "DevEnv", "dev", buildVersion, true 
 			}
-
 		}
-
+        stage("Verify Pacts") {
+            agent { label 'dotnetcore' }
+            steps {
+                deleteDir()
+                unstash "solution"
+                bat 'dotnet run --project \"%WORKSPACE%/build/Build.csproj\" -target "Verify_Pacts" -NoDeps'
+            }
+        }
 		stage("Performance Test") {
 
         	agent { label 'dockerhost' }
@@ -76,7 +81,6 @@ pipeline {
                 stash name: "solution", useDefaultExcludes: false
 			}
 		}
-
 		stage("Promote > UAT") {
 			agent { label 'dotnetcore' }
 
