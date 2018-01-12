@@ -82,6 +82,14 @@ namespace Build.Targets
 
         }, StackTags, false));
 
+        public Target Verify_Pacts => _ => _
+             .Description("Verify pacts")
+             .DependsOn(Compile)
+             .Executes(() => DotNetTest(
+                 settings => settings
+                    .SetProjectFile(Settings.TestDirectory / "DinkumCoin.Api.PactVerify")
+                    .SetNoBuild(true)));
+
 
         public Target Deploy_S3 => _ => _
          .Description("Provision S3 bucket for deployment packages")
