@@ -75,18 +75,22 @@ pipeline {
 			steps { 
 				deleteDir()
 				unstash "solution"
-                sh "docker run --user=jenkins --entrypoint=gatling.sh --rm -i -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/user-files:/opt/gatling/user-files --mount type=bind,src=${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/results,dst=/opt/gatling/results stu-p/gatling -s DinkumCoinSimulation"	
+                
+                sh "mkdir ${env.WORKSPACE}/results"
+
+                 sh "docker run --user=jenkins --entrypoint=gatling.sh --rm -i -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/user-files:/opt/gatling/user-files -v ${env.WORKSPACE}/results:/opt/gatling/results stu-p/gatling -s crownbet.qa.gatling.example.DinkumCoinSimulation"
+                
                 stash name: "solution", useDefaultExcludes: false
 			}
 		}
 		stage("Promote > UAT") {
 			agent { label 'dotnetcore' }
 
-		steps { 
-				deleteDir()
-				unstash "solution"
-				echo 'Not implemented'
-			}
+            steps { 
+                    deleteDir()
+                    unstash "solution"
+                    echo 'Not implemented'
+                }
 		}			
 	}
 	post {
@@ -99,6 +103,7 @@ pipeline {
 			tools: [[ $class: 'XUnitDotNetTestType', pattern: '**/TestResults.xml']]])
 
 			gatlingArchive()
+            
 			// cobertura autoUpdateHealth: false, autoUpdateStability: false, coberturaReportFile: '**/*Cobertura.coverageresults', conditionalCoverageTargets: '70, 0, 0', failUnhealthy: false, failUnstable: false, lineCoverageTargets: '80, 0, 0', maxNumberOfBuilds: 0, methodCoverageTargets: '80, 0, 0', onlyStable: false, sourceEncoding: 'ASCII', zoomCoverageChart: false
 		}
 	}

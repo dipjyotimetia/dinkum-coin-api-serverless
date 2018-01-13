@@ -22,7 +22,7 @@ class DinkumCoinSimulation extends Simulation {
     pause(1)
 
   setUp(scn.inject(constantUsersPerSec(1) during (1 minutes))).protocols(httpConfig)
-    .assertions(global.successfulRequests.percent.is(90))
+    .assertions(global.successfulRequests.percent.is(100))
 
 
 }
