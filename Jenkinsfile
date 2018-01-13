@@ -67,7 +67,7 @@ pipeline {
             steps {
                 deleteDir()
                 unstash "solution"
-                bat 'dotnet run --project \"%WORKSPACE%/build/Build.csproj\" -target "Verify_Pacts" -NoDeps'
+                sh 'dotnet run --project \"%WORKSPACE%/build/Build.csproj\" -target "Verify_Pacts" -NoDeps'
             }
         }
 		stage("Performance Test") {
