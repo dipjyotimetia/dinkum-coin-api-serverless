@@ -75,10 +75,8 @@ pipeline {
 			steps { 
 				deleteDir()
 				unstash "solution"
-                
-                sh "mkdir ${env.WORKSPACE}/results"
 
-                 sh "docker run --user=jenkins --entrypoint=gatling.sh --rm -i -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/user-files:/opt/gatling/user-files -v ${env.WORKSPACE}/results:/opt/gatling/results stu-p/gatling -s crownbet.qa.gatling.example.DinkumCoinSimulation"
+                 sh "docker run --user=jenkins --entrypoint=gatling.sh --rm -i -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/user-files:/opt/gatling/user-files -v ${env.WORKSPACE}/test/DinkumCoin.Api.PerformanceTests/results:/opt/gatling/results stu-p/gatling -s crownbet.qa.gatling.example.DinkumCoinSimulation"
                 
                 stash name: "solution", useDefaultExcludes: false
 			}
