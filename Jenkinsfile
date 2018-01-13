@@ -47,14 +47,12 @@ pipeline {
 			agent { label 'dotnetcore' }
 
 			steps {
-
 				sh 'dotnet run --project \"build/Build.csproj\" -target "Package" -NoDeps'
 				sh 'dotnet run --project \"build/Build.csproj\" -target "Upload" -NoDeps'	
 			}
 		}
 		stage("Deploy > Dev") {
 			agent { label 'dotnetcore' }
-
 
 			steps { 
 				deleteDir()
@@ -64,14 +62,14 @@ pipeline {
 		}
         stage("Verify Pacts") {
             agent { label 'dotnetcore' }
+
             steps {
                 deleteDir()
                 unstash "solution"
-                sh 'dotnet run --project \"%WORKSPACE%/build/Build.csproj\" -target "Verify_Pacts" -NoDeps'
+                sh 'dotnet run --project \"build/Build.csproj\" -target "Verify_Pacts" -NoDeps'
             }
         }
 		stage("Performance Test") {
-
         	agent { label 'dockerhost' }
 
 			steps { 
